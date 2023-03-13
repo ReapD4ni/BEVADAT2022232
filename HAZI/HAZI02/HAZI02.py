@@ -31,48 +31,28 @@ def get_array_shape(arr):
 
 # %%
 def encode_Y(arr, n):
-    answer = []
-    for i in arr:
-        ones = [0] * n
-        if i != 0:
-            ones[i] = 1
-        answer.append(ones)
+    answer = np.zeros((len(arr), n))
+    
+    for i in range(len(arr)):
+        answer[i, arr[i]] = 1
+        
     return answer
 
 # %%
 def decode_Y(arr):
-    answer=[]
-    for i in arr:
-        if sum(i) == 0:
-            answer.append(0)
-        else:
-            answer.append(i.index(1))
-    return answer
-
+    return np.argmax(arr, axis=1)
 # %%
 def eval_classification(l, arr):
-    index=arr.index(max(arr))
-    return l[index]
+    max_index=np.argmax(arr)
+    return l[max_index]
 
 # %%
-def repalce_odd_numbers(arr):
-    answer=[]
-    for i in range(len(arr)):
-        if arr[i]%2 != 0:
-            answer.append(-1)
-        else:
-            answer.append(arr[i])
-    return answer
+def replace_odd_numbers(arr):
+    return np.where(arr % 2 == 1, -1, arr)
 
 # %%
 def replace_by_value(arr, value):
-    answer=[]
-    for i in range(len(arr)):
-        if value > arr[i]:
-            answer.append(-1)
-        else:
-            answer.append(1)
-    return answer
+    return np.where(arr < value, -1, 1)
 
 # %%
 def array_multi(arr):
@@ -93,28 +73,24 @@ def add_border(arr):
     return answer
 
 # %%
-from datetime import date, timedelta
+from datetime import datetime, timedelta
 
-def list_days(date1, date2):
-    x = date.fromisoformat(date1)
-    y = date.fromisoformat(date2)
-    delta = timedelta(days=1)
-    days = []
-    while x <= y:
-        days.append(x.isoformat())
-        x += delta
-    return days
+def list_days(start_date, end_date):
+    start = datetime.strptime(start_date, '%Y-%m')
+    end = datetime.strptime(end_date, '%Y-%m')
+    num_days = (end - start).days + 1
+    days = np.array([start + timedelta(days=i) for i in range(num_days)])
+    days_str = np.array([d.strftime('%Y-%m-%d') for d in days])
+    return days_str
 
 # %%
-from datetime import date
-
 def datetime_now():
-    x= date.today()
-    print(x)
+    now = datetime.now()
+    date_str = now.strftime("%Y-%m-%d")
+    return np.datetime64(date_str)
 
 # %%
 import time
 def sec_from_1970():
     return int(time.time())
-
 
