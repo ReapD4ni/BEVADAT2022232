@@ -89,7 +89,7 @@ from datetime import datetime
 def get_act_date():
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d")
-    print(np.datetime64(date_str))
+    return np.datetime64(date_str)
 
 # %%
 import time
