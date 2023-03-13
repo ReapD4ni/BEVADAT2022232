@@ -84,10 +84,12 @@ def list_days(start_date, end_date):
     return days_str
 
 # %%
-def datetime_now():
+from datetime import datetime
+
+def get_act_date():
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d")
-    return np.datetime64(date_str)
+    print(np.datetime64(date_str))
 
 # %%
 import time
