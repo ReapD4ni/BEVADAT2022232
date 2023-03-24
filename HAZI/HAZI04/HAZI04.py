@@ -25,13 +25,13 @@ függvény neve: csv_to_df
 
 def csv_to_df(file_path):
     try:
-        test_df=pd.read_csv(file_path)
+        #test_df=pd.read_csv(file_path)
         df_data=pd.DataFrame(test_df)
         return df_data
     except FileNotFoundError:
         print(f'Error: file not found at path {file_path}')
 
-csv_to_df("StudentsPerformance.csv")
+#csv_to_df("StudentsPerformance.csv")
 
 # %%
 '''
@@ -45,7 +45,7 @@ függvény neve: capitalize_columns
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
 
 def capitalize_columns(df_data):
     new_columns=[]
@@ -57,7 +57,7 @@ def capitalize_columns(df_data):
     df_data.columns=new_columns
     return df_data
 
-capitalize_columns(new_df)
+#capitalize_columns(new_df)
 
 # %%
 '''
@@ -71,14 +71,16 @@ függvény neve: math_passed_count
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
+
 def math_passed_count(df_data):
     math_column=df_data["math score"]
     return math_column
-math_passed_count(new_df)
+
+#math_passed_count(new_df)
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
 
 def math_passed_count(df_data):
     math_column=df_data["math score"]
@@ -87,7 +89,8 @@ def math_passed_count(df_data):
         if i>=50:
             answer+=1
     return answer
-math_passed_count(new_df)
+
+#math_passed_count(new_df)
 
 # %%
 '''
@@ -100,13 +103,13 @@ függvény neve: did_pre_course
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
 
 def did_pre_course(df_data):
     df_did_pre_course=df_data[df_data["test preparation course"] =="completed"]
     return df_did_pre_course
 
-did_pre_course(new_df)
+#did_pre_course(new_df)
 
 # %%
 '''
@@ -120,14 +123,14 @@ függvény neve: average_scores
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
 
 def average_scores(df_data):
     df_average_scores=df_data.groupby("parental level of education")["math score","reading score","writing score"].mean()
     df_average_scores=df_average_scores.rename(columns={"math score":"avarage math score", "reading score":"avarage reading score", "writing score":"avarage writing score" })  
     return df_average_scores
 
-average_scores(new_df)
+#average_scores(new_df)
 
 # %%
 '''
@@ -141,15 +144,15 @@ függvény neve: add_age
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
-import random
+#new_df=csv_to_df("StudentsPerformance.csv")
+#import random
 
 def add_age(df_data):
     random.seed(42)
     df_data["age"]=np.random.randint(18,67,size=len(df_data))
     return df_data
 
-add_age(new_df)
+#add_age(new_df)
 
 
 # %%
@@ -163,7 +166,7 @@ függvény neve: female_top_score
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
 
 def female_top_score(df_data):
     females=df_data.loc[df_data["gender"]=="female"]
@@ -171,7 +174,8 @@ def female_top_score(df_data):
     max_reading_score=females["reading score"].max()
     max_writing_score=females["writing score"].max()
     return (max_math_score, max_reading_score, max_writing_score)
-female_top_score(new_df)
+
+#female_top_score(new_df)
 
 # %%
 '''
@@ -191,14 +195,15 @@ függvény neve: add_grade
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
+#new_df=csv_to_df("StudentsPerformance.csv")
+
 def add_grade(df_data):
     df_data["grade"]=(df_data["math score"]+df_data["reading score"]+df_data["writing score"])/3
     df_data["grade"]=df_data["grade"].apply(lambda x: 'A' if x >= 90 else 'B' if x >= 80 else 'C' if x >= 70 else 'D' if x >= 60 else 'F')
     
     return df_data
 
-add_grade(new_df)
+#add_grade(new_df)
 
 # %%
 '''
@@ -216,8 +221,8 @@ függvény neve: math_bar_plot
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
-import matplotlib.pyplot as plt
+#new_df=csv_to_df("StudentsPerformance.csv")
+#import matplotlib.pyplot as plt
 
 def math_bar_plot(df_data):
     math_scores=df_data.groupby("gender")["math score"].mean()
@@ -228,8 +233,8 @@ def math_bar_plot(df_data):
     ax.set_ylabel('Math Score')
     return fig
 
-math_bar_plot(new_df)
-plt.show()
+#math_bar_plot(new_df)
+#plt.show()
 
 
 
@@ -249,8 +254,8 @@ függvény neve: writing_hist
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
-import matplotlib.pyplot as plt
+#new_df=csv_to_df("StudentsPerformance.csv")
+#import matplotlib.pyplot as plt
 
 def writing_hist(df_data):
     fig, ax=plt.subplots()
@@ -260,8 +265,8 @@ def writing_hist(df_data):
     ax.set_ylabel('Number of Students')
     return fig
 
-writing_hist(new_df)
-plt.show()
+#writing_hist(new_df)
+#plt.show()
 
 # %%
 ''' 
@@ -279,8 +284,8 @@ függvény neve: ethnicity_pie_chart
 '''
 
 # %%
-new_df=csv_to_df("StudentsPerformance.csv")
-import matplotlib.pyplot as plt
+#new_df=csv_to_df("StudentsPerformance.csv")
+#import matplotlib.pyplot as plt
 
 def ethnicity_pie_chart(df_data):
     race_numbers=df_data['race/ethnicity'].value_counts()
@@ -289,7 +294,7 @@ def ethnicity_pie_chart(df_data):
     ax.set_title('Proportion of Students by Race/Ethnicity')
     return fig
 
-ethnicity_pie_chart(new_df)
-plt.show()
+#ethnicity_pie_chart(new_df)
+#plt.show()
 
 
