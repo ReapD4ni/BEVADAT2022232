@@ -28,7 +28,7 @@ def dict_to_date(test_dict):
     test_df=pd.DataFrame(test_dict)
     return test_df
 
-dict_to_date(test_dict)
+#dict_to_date(test_dict)
 
 # %%
 stats = {"country": ["Brazil", "Russia", "India", "China", "South Africa"],
@@ -47,13 +47,13 @@ függvény neve: get_column
 '''
 
 # %%
-new_df=dict_to_date(test_dict)
+#new_df=dict_to_date(test_dict)
 
 def get_column(test_df, column_name):
     answer_df=test_df[column_name]
     return answer_df
 
-get_column(new_df,'area')
+#get_column(new_df,'area')
 
 # %%
 '''
@@ -66,12 +66,12 @@ függvény neve: get_top_two
 '''
 
 # %%
-new_df=dict_to_date(test_dict)
+#new_df=dict_to_date(test_dict)
 
 def get_top_two(test_df):
     return test_df.nlargest(2,'area')
 
-get_top_two(new_df)
+#get_top_two(new_df)
 
 # %%
 '''
@@ -85,13 +85,13 @@ függvény neve: population_density
 '''
 
 # %%
-new_df=dict_to_date(test_dict)
+#new_df=dict_to_date(test_dict)
 
 def population_density(test_df):
     test_df['density']=test_df['population'] / test_df['area']
     return test_df
 
-population_density(new_df)
+#population_density(new_df)
 
 # %%
 '''
@@ -109,19 +109,21 @@ függvény neve: plot_population
 '''
 
 # %%
-new_df=dict_to_date(test_dict)
+#new_df=dict_to_date(test_dict)
 import matplotlib.pyplot as plt
 
-def plot_population(test_df):
+def plot_population(test_df: pd.DataFrame):
+    new_df=test_df.copy()
     fig, ax=plt.subplots()
-    ax.bar(test_df['country'],test_df['population'] / 1000000)
+
+    ax.bar(new_df['country'],new_df                                                                         ['population'])
     ax.set_title('Population of Countries')
     ax.set_xlabel('Country')
     ax.set_ylabel('Population (millions)')
     return fig
 
-plot_population(new_df)
-plt.show()
+#plot_population(new_df)
+#plt.show()
 
 
 # %%
@@ -138,22 +140,17 @@ függvény neve: plot_area
 '''
 
 # %%
-new_df=dict_to_date(test_dict)
+#new_df=dict_to_date(test_dict)
 import matplotlib.pyplot as plt
 
-def plot_area(test_df):
-    labels=test_df.index.values
-    sizes=test_df['area'].values
-
+def plot_area(test_df: pd.DataFrame):
+    new_df=test_df.copy()
     fig, ax=plt.subplots()
-    ax.pie(sizes,labels=labels)
     ax.set_title('Area of Countries')
-
-    #plt.tight_layout
-    plt.show()
+    ax.pie(new_df['area'],labels=new_df['country'])
     return fig
 
-plot_area(new_df)
-plt.show()
+#plot_area(new_df)
+#plt.show()
 
 
