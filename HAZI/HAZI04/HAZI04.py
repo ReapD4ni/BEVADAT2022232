@@ -23,13 +23,10 @@ függvény neve: csv_to_df
 
 
 
-def csv_to_df(file_path):
-    try:
-        #test_df=pd.read_csv(file_path)
-        df_data=pd.DataFrame(test_df)
-        return df_data
-    except FileNotFoundError:
-        print(f'Error: file not found at path {file_path}')
+def csv_to_df(file_path:str) ->pd.DataFrame:
+    test_df=pd.read_csv(file_path)
+    return test_df
+    
 
 #csv_to_df("StudentsPerformance.csv")
 
@@ -125,10 +122,10 @@ függvény neve: average_scores
 # %%
 #new_df=csv_to_df("StudentsPerformance.csv")
 
-def average_scores(df_data):
-    df_average_scores=df_data.groupby("parental level of education")["math score","reading score","writing score"].mean()
-    df_average_scores=df_average_scores.rename(columns={"math score":"avarage math score", "reading score":"avarage reading score", "writing score":"avarage writing score" })  
-    return df_average_scores
+def average_scores(df_data:pd.DataFrame) -> pd.DataFrame:
+    new_df=df_data.copy()
+    grouped=new_df.groupby('parental level of education')  
+    return grouped.mean()
 
 #average_scores(new_df)
 
@@ -145,7 +142,7 @@ függvény neve: add_age
 
 # %%
 #new_df=csv_to_df("StudentsPerformance.csv")
-#import random
+import random
 
 def add_age(df_data):
     random.seed(42)
@@ -257,9 +254,10 @@ függvény neve: writing_hist
 #new_df=csv_to_df("StudentsPerformance.csv")
 #import matplotlib.pyplot as plt
 
-def writing_hist(df_data):
+def writing_hist(df_data:pd.DataFrame):
+    new_df=df_data.copy()
     fig, ax=plt.subplots()
-    ax.hist(df_data["writing score"],bins=30)
+    ax.hist(new_df['writing score'],bins=10)
     ax.set_title('Distribution of Writing Scores')
     ax.set_xlabel('Writing Score')
     ax.set_ylabel('Number of Students')
