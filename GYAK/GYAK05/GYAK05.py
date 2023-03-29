@@ -5,7 +5,7 @@ from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
 
 
-csv_path = "archive/iris.data.csv"
+#csv_path = "iris.csv"
 
 class KNNClassifier:
     
