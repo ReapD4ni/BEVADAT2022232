@@ -5,7 +5,7 @@ from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
 
 
-#csv_path = "iris.csv"
+csv_path = "iris.csv"
 
 class KNNClassifier:
     
@@ -13,10 +13,15 @@ class KNNClassifier:
     def __init__(self,k:int,test_split_ratio:float):
         self.k = k
         self.test_split_ratio = test_split_ratio
+        self.x_train = None
+        self.y_train = None
+        self.x_test = None
+        self.y_test = None
+        self.y_preds = None
 
     #Property
     @property
-    def k(self):
+    def k_neighbors(self):
         return self.k
 
     #Load data, clean
@@ -27,8 +32,6 @@ class KNNClassifier:
         np.random.shuffle(dataset,)
         x,y = dataset[:,:4],dataset[:,-1]
         return x,y
-    
-    x,y = load_csv(csv_path)
     
     #Train test split try optim
     def train_test_split(self,features:np.ndarray,labels:np.ndarray)-> None:
@@ -42,24 +45,25 @@ class KNNClassifier:
         self.x_test = features[train_size:train_size+test_size,:]
         self.y_test = labels[train_size:train_size + test_size]
     
-
     def euclidean(self,element_of_x:np.ndarray) -> np.ndarray:
         return np.sqrt(np.sum((self.x_train - element_of_x)**2,axis=1))
 
     def predict(self,x_test:np.ndarray) -> np.ndarray:
         labels_pred = []
         for x_test_element in x_test:
-            distances = self.euclidean(self.x_train,x_test_element)
+            distances = self.euclidean(x_test_element)
             distances = np.array(sorted(zip(distances,self.y_train)))
             label_pred = mode(distances[:self.k,1],keepdims=False).mode
             labels_pred.append(label_pred)
         self.y_preds = np.array(labels_pred,dtype=np.int32)
-        return self.y_preds
-    
+
     def accuracy(self) -> float:
         true_positive = (self.y_test == self.y_preds).sum()
         return true_positive / len(self.y_test) * 100
     
-    def confusion_matrix(self):
+    def confusion_matrix(self) -> np.ndarray:
         conf_matrix = confusion_matrix(self.y_test,self.y_preds)
-        sns.heatmap(conf_matrix,annot=True)
+        return conf_matrix
+    
+
+
