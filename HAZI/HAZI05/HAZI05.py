@@ -22,7 +22,7 @@ class KNNClassifier:
 
     #Property
     @property
-    def k(self):
+    def k_neighbors(self):
         return self.k
 
     #Load data, clean
@@ -30,7 +30,7 @@ class KNNClassifier:
     def load_csv(csv_path:str) ->Tuple[pd.DataFrame,pd.Series]:
         df = pd.read_csv(csv_path)
         df = df.sample(frac=1, random_state=42).reset_index(drop=True)
-        x, y = df.iloc[:,:4], df.iloc[:, -1]
+        x, y = df.iloc[:,:-1], df.iloc[:, -1]
         return x, y
 
     #Train test split try optim
