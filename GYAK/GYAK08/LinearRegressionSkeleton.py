@@ -15,7 +15,6 @@ class LinearRegression:
         n = float(len(X)) 
 
         losses = []
-
         for i in range(self.epochs):
             self.y_pred = self.m * X + self.c
 
@@ -29,12 +28,14 @@ class LinearRegression:
             if i % 100 == 0:
                 print(np.mean(y-self.y_pred))
 
-
-
-
-    def predict(self, X):
         pred = []
         for x in X:
             y_pred = self.m*x + self.c
             pred.append(y_pred)
-        print(pred)
+
+        return y_pred
+
+
+    def predict(self, X):
+        y_pred = self.m*X+self.c
+        return y_pred
