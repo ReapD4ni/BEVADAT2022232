@@ -5,6 +5,7 @@ import pandas as pd
 import sklearn.utils
 import pandas.core.frame
 
+from typing import Tuple
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
