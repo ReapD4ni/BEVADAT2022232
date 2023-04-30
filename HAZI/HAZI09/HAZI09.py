@@ -21,14 +21,14 @@ class KMeansOnDigits:
     def get_labels(self):
         result=np.zeros_like(self.clusters)
         for cluster in range(self.n_clusters):
-            mask= self.n_clusters == cluster
+            mask= (self.clusters == cluster)
             cluster_label=self.digits.target[mask]
             mode=np.bincount(cluster_label).argmax()
             result[mask]=mode
         self.labels=result
 
     def calc_accuracy(self):
-        self.accuracy=accuracy_score(self.digits.target,self.labels)
+        self.accuracy = round(np.mean(self.labels == self.digits.target), 2)
 
     def confusion_matrix(self):
         self.mat=confusion_matrix(self.digits.target, self.labels)
